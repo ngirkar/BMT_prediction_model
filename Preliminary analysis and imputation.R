@@ -155,15 +155,11 @@ round(prop.table(table(validation_data$Deceased))*100)
 
 ##### SINGLE IMPUTATION FOR THE TRAINING DATASET ##############
 
-
-
 # Perform imputation using missForest
 imputed_data <- missForest(training_data)
 # Extract the imputed dataset-training 
 imputed_data_complete <- imputed_data$ximp
 summary(imputed_data_complete)
-
-
 
 #####SINGLE IMPUTATION ON VALIDATION DATASET####
 
