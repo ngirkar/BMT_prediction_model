@@ -5,7 +5,7 @@ library(survival)
 
 #####INTERNAL VALIDATION#########
 
-#data sets that are censored at 5
+#creating a subset of data for survival at 500
 temp <- survSplit(Surv(Overall.Survival,Deceased) ~ ., data = imputed_vdata_complete, cut = 500,
                   episode ="epoch")
 temp
@@ -135,7 +135,7 @@ survival_at_500$spred1 <- 1-predict(
   type = "surv", 
   times = prediction_timepoint
 )
-survival_at_500$lp1 <- log(-log(1 - survival_at_500$spred1))
+survival_at_500$lp1 <- log(-log(1 - survival_at_500$spred1))###linear predictor 
 
 gval1 <- coxph(Surv(Overall.Survival, Deceased) ~ lp1, data = survival_at_500)
 gval1
