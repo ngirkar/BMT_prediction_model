@@ -125,33 +125,10 @@ plot(X, Y, pch = 20, col = "darkgray",
 abline(h = 0)
 lines(smooth.spline(X, Y, df = 2), lty = 2, lwd = 2)
 
-# Fit model with quadratic
-fit2 <- coxph(Surv(Overall.Survival, Deceased) ~
-                Age + HCT.CI.Score + I(HCT.CI.Score^2) + V.VCO2,
-              data = imputed_data_complete)
-
-# Re-check linearity assumption
-X  <- imputed_data_complete$HCT.CI.Score
-X2 <- imputed_data_complete$HCT.CI.Score^2
-Y <- resid(fit2, type = "martingale")
-
-par(mfrow=c(1,2))
-plot(X, Y, pch = 20, col = "darkgray",
-     xlab = "HCT.CI.Score", ylab = "Martingale Residual",
-     main = "Residuals vs. Linear Term\n(smoother df = 2)",
-     cex.main = 0.90)
-abline(h = 0)
-lines(smooth.spline(X, Y, df = 2), lty = 2, lwd = 2)
-
-plot(X2, Y, pch = 20, col = "darkgray",
-     xlab = "HCT.CI.Score^2", ylab = "Martingale Residual",
-     main = "Residuals vs. Quadratic Term\n(smoother df = 3)",
-     cex.main = 0.90)
-abline(h = 0)
-lines(smooth.spline(X2, Y, df = 2), lty = 2, lwd = 2)
 
 
-# Fit model with quadratic
+
+# Fit model with log(Age)
 fit3 <- coxph(Surv(Overall.Survival, Deceased) ~
                 log(Age) + HCT.CI.Score + V.VCO2,
               data = imputed_data_complete)
@@ -171,7 +148,7 @@ lines(smooth.spline(X, Y, df = 2), lty = 2, lwd = 2)
 
 plot(X2, Y, pch = 20, col = "darkgray",
      xlab = "log(Age)", ylab = "Martingale Residual",
-     main = "Residuals vs. Quadratic Term\n(smoother df = 3)",
+     main = "Residuals vs. log Term\n(smoother df = 3)",
      cex.main = 0.90)
 abline(h = 0)
 lines(smooth.spline(X2, Y, df = 2), lty = 2, lwd = 2)
